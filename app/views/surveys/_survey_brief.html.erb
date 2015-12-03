@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-1 text-center"><h4><%= link_to survey.id, survey_path(survey) %></h4></div>
+  <div class="col-md-2 text-left clickable-area" data-href=<%= survey_path(survey) %>><h4><%= survey.name %></h4></div>
+
+  <% if current_user.admin? %>
+      <div class="col-md-2 text-center">
+        <h4>
+          <%= User.find(survey.user_id).email %>
+        </h4>
+      </div>
+  <% end %>
+
+  <div class="col-md-1 text-center">
+    <h4><%= link_to "Answer", new_respond_path(:survey => survey), class: "btn btn-primary" %></h4>
+  </div>
+  <div class="col-md-1 text-center">
+    <h4><%= link_to "Edit", edit_survey_path(survey), class: "btn btn-primary", style: 'width: 80px' %></h4>
+  </div>
+  <div class="col-md-1 text-left">
+    <h4><%= link_to "Destroy", survey, confirm: 'Are you sure?', method: :delete, class: "btn btn-primary" %></h4>
+  </div>
+
+</div>
+
+
+<hr style="border-color: black;">

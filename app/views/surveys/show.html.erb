@@ -1,0 +1,39 @@
+<% if (current_user.admin? or @survey.user_id==current_user.id)and(!@survey.nil?) %>
+    <h1 class="text-center">Survey page</h1>
+    <div class="row">
+      <div class="col-md-5">
+        <h4>
+          <strong>Survey </strong>
+          <%= @survey.name %>
+        </h4>
+      </div>
+      <div class="col-md-7">
+        <div class="col-md-4">
+          <h4>
+            <strong>Respond </strong>
+          </h4>
+        </div>
+        <div class="col-md-8">
+          <h4>
+            <strong>User </strong>
+          </h4>
+        </div>
+      </div>
+    </div>
+    <hr style="border-color: black;">
+    <ol>
+      <% for question in @survey.questions %>
+          <%= render 'questions/question_show', question: question %>
+      <% end %>
+    </ol>
+
+    <p>
+      <%= link_to "Answer", new_respond_path(:survey => @survey), class: "btn btn-primary", style: 'width: 80px' %>
+      <%= link_to "Edit", edit_survey_path(@survey), class: "btn btn-primary", style: 'width: 80px' %>
+      <%= link_to "Destroy", @survey, confirm: 'Are you sure?', method: :delete, class: "btn btn-primary" %>
+      <%= link_to "View All", surveys_path, class: "btn btn-primary" %>
+    </p>
+    <%= link_to "Back", :back %>
+<% else %>
+    <h1 class="text-center">You can't see this survey!</h1>
+<% end %>

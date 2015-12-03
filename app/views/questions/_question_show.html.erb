@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-md-5">
+
+    <li><%= question.content %></li>
+    <% if question.option==1 %>
+        <ul>
+    <% else %>
+        <ol>
+    <% end %>
+    <% if question.meta.length!=0 %>
+        <% objArray = ActiveSupport::JSON.decode(question.meta) %>
+        <% i=0 %>
+        <% objArray.each do |k, v| %>
+            <% if question.option==4 %>
+            <li style="list-style-type: none;">
+                <% else%>
+            <li>
+                <%end%>
+              <% if question.option!=4 %>
+                  <% input_class='answer' %>
+                  <%= v["content"] %>
+              <% end %>
+              <% if question.option==4 %>
+                  <%= "Min value" if i==0 %>
+                  <%= "Max value" if i==1 %>
+                  <%= "By default" if i==2 %>
+                  <% input_class='answer slider' %>
+                  <%= v["content"] %>
+              <% end %>
+
+            </li>
+            <% i+=1 %>
+        <% end %>
+    <% end %>
+    <% if question.option==1 %>
+        </ul>
+    <% else %>
+        </ol>
+    <% end %>
+
+  </div>
+  <div class="col-md-7">
+    <% fa=Respond.where('survey_id=? and question_id=?', @survey.id, question.id) %>
+    <% fa.each do |f| %>
+        <% objArray = ActiveSupport::JSON.decode(f.content) %>
+        <% i=0 %>
+        <% objArray.each do |k, v| %>
+            <div class="col-md-3 text-left">
+              <%= v["content"] %>
+            </div>
+            <div class="col-md-9 text-left">
+              <%= User.find(f.user_id).email %>
+            </div>
+        <% end %>
+    <% end %>
+  </div>
+</div>
+<hr style="border-color: black;">

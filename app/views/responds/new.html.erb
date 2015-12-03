@@ -1,0 +1,60 @@
+<%= form_for @respond do |f| %>
+    <h4>
+      <strong>Survey </strong>
+      <%= @survey.name %>
+    </h4>
+    <hr style="border-color: black;">
+    <ol>
+      <%# @survey.questions.each do |question| %>
+
+      <%= f.fields_for :questions do |q| %>
+          <% j=0 %>
+          <% @survey.questions.each do |question| %>
+              <li>
+                <%= q.hidden_field ''+j.to_s+'][id', value: question.id %>
+                <%= q.hidden_field ''+j.to_s+'][survey', value: @survey.id %>
+
+                <%= q.label question.content %><br/>
+
+                <ul>
+                  <% if (question.meta.length!=0 && question.option!=3&& question.option!=4) %>
+                      <% objArray = ActiveSupport::JSON.decode(question.meta) %>
+                      <% i=0 %>
+
+                      <% objArray.each do |k, v| %>
+                          <li style='list-style-type: none;'>
+                            <% if question.option==1 %>
+                                <%= q.radio_button ''+j.to_s+'][reply][0][content', v["content"], required: 'required'  %>
+                            <% elsif question.option==2 %>
+                                <%= q.check_box ''+j.to_s+'][reply][' +i.to_s+'][content', {id: 'checkbox'}, v["content"], nil%>
+                            <% end %>
+                            <%= v["content"] %></li>
+                          <% i+=1 %>
+                      <% end %>
+                  <% elsif question.option==3 %>
+                      <li style='list-style-type: none;'>
+                        <%= q.text_field ''+j.to_s+'][reply][0][content', required: 'required' %>
+                      </li>
+                  <% elsif question.option==4 %>
+                      <% objArray = ActiveSupport::JSON.decode(question.meta) %>
+                      <div id="slider">
+                        <div id="slider_min" class=<%= objArray["0"]["content"] %>></div>
+                        <div id="slider_max" class=<%= objArray["1"]["content"] %>></div>
+                        <div id="slider_def" class=<%= objArray["2"]["content"] %>></div>
+                        <%= q.text_field ''+j.to_s+'][reply][0][content', readonly: true, id: 'amount' %>
+                        <%= content_tag(:div, nil, id: 'slider-range') %>
+                      </div>
+                  <% end %>
+                </ul>
+
+
+
+              </li>
+              <% j+=1 %>
+          <% end %>
+
+      <% end %>
+    </ol>
+    <p><%= f.submit 'Submit', class: 'respond_submit btn btn-primary' %></p>
+<% end %>
+<%= link_to "Back", :back %>

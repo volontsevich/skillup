@@ -1,0 +1,29 @@
+<% if user_signed_in? %>
+    <h1 class="text-center">All surveys</h1>
+
+    <div class="row">
+      <div class="col-md-1 text-center"><h3>Id</h3></div>
+      <div class="col-md-2 text-center"><h3>Name</h3></div>
+
+        <% if current_user.admin? %>
+            <div class="col-md-2 text-center">
+              <h3>User</h3>
+            </div>
+            <div class="col-md-3 text-center">
+              <h3>Action</h3>
+            </div>
+        <% end %>
+
+    </div>
+
+
+    <hr style="border-color: black;">
+
+    <% @surveys.each do |survey| %>
+        <%= render 'surveys/survey_brief', survey: survey %>
+    <% end %>
+    <%= link_to "New", new_survey_path, class: "btn btn-primary" %>
+<% else %>
+    <h1 class="text-center">Surveys page is not available</h1>
+    <h1 class="text-center">You need to register to view surveys!</h1>
+<% end %>
