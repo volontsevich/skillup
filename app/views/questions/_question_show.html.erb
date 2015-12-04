@@ -39,7 +39,7 @@
     <% end %>
 
   </div>
-  <div class="col-md-7">
+  <div class="col-md-7 respond">
     <% fa=Respond.where('survey_id=? and question_id=?', @survey.id, question.id) %>
     <% fa.each do |f| %>
         <% objArray = ActiveSupport::JSON.decode(f.content) %>

@@ -7,6 +7,7 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'devise'
 require 'support/controller_macros'
+require 'support/capybara'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 

@@ -1,19 +1,19 @@
 <%= form_for @survey do |f| %>
 
     <p>
-      <%= f.label :name, "Survey name" %><br/>
+      <%= f.label :name, 'Survey name' %><br/>
       <%= f.text_field :name %>
     </p>
     <ol>
       <%= f.fields_for :questions do |q| %>
-          <div class="QQQ">
-            <%= q.label "Question" %><br/>
+          <div class='QuestionBlock'>
+            <%= q.label 'Question' %><br/>
             <%= q.text_field :content, class: 'question' %>
-            <%= link_to "Remove", question_destroy_path(q.object.id, :r => @survey.id), confirm: 'Are you sure?',
-                        method: :delete, remote: true, class: "remove_item" %>
+            <%= link_to 'Remove', question_destroy_path(q.object.id, :r => @survey.id), confirm: 'Are you sure?',
+                        method: :delete, remote: true, class: 'remove_item', id: 'remove_question_'+ q.options[:child_index].to_s %>
             <br/>
             <%= q.select :option, options_for_select(options, :selected => q.object.option), {}, {class: 'question_type'} %>
-            <div class="answers">
+            <div class='answers'>
               <ol>
                 <% if q.object.meta.length!=0 %>
                     <% objArray = ActiveSupport::JSON.decode(q.object.meta) %>
@@ -21,34 +21,40 @@
                     <% objArray.each do |k, v| %>
                         <li>
                           <% if q.object.option!=4 %>
-                              <%= q.label "Answer" %>
+                              <%= q.label 'Answer' %>
                           <% elsif i==0 %>
-                              <%= q.label "Min value" %>
+                              <%= q.label 'Min value' %>
                           <% elsif i==1 %>
-                              <%= q.label "Max value" %>
+                              <%= q.label 'Max value' %>
                           <% elsif i==2 %>
-                              <%= q.label "By default" %>
+                              <%= q.label 'By default' %>
                           <% end %>
                           <% if q.object.option==4 %>
                               <% input_class='answer slider' %>
                           <% else %>
                               <% input_class='answer' %>
                           <% end %>
-                          <%= q.text_field :meta, :value => v["content"], :name => 'survey[questions_attributes]['+
-                              q.options[:child_index].to_s+'][answers_attributes][' +i.to_s+'][content]', class: input_class %>
-                          <%= link_to "Remove", "#", class: "remove_item" %>
+                          <%= q.text_field :meta, :value => v['content'], :name => 'survey[questions_attributes]['+
+                              q.options[:child_index].to_s+'][answers_attributes][' +i.to_s+'][content]',
+                                           class: input_class, id:'sqa_'+q.options[:child_index].to_s+'_a_'+i.to_s %>
+                          <% if q.object.option!=4 %>
+                              <%= link_to 'Remove', '#', class: 'remove_item', id: 'remove_answer_'+ q.options[:child_index].to_s+'_'+i.to_s %>
+                          <% end %>
                         </li>
                         <% i+=1 %>
+                    <% end %>
+                    <% if q.object.option==4 %>
+                        <%= link_to 'Remove', '#', class: 'remove_item', id: 'remove_answer_'+ q.options[:child_index].to_s+'_'+i.to_s %>
                     <% end %>
                 <% end %>
               </ol>
             </div>
-            <%= link_to "Add answer", "#", class: "add_answer" %>
+            <%= link_to 'Add answer', '#', class: 'add_answer' %>
           </div>
       <% end %>
-      <%= link_to "Add Question", "#", class: "add_question" %>
+      <%= link_to 'Add Question', '#', class: 'add_question' %>
     </ol>
-    <p><%= f.submit "Submit", class: "survey_submit btn btn-primary" %></p>
+    <p><%= f.submit 'Submit', class: 'survey_submit btn btn-primary' %></p>
 <% end %>
 
-<%= link_to "Back", :back %>
+<%= link_to 'Back', :back %>

@@ -24,9 +24,11 @@
                       <% objArray.each do |k, v| %>
                           <li style='list-style-type: none;'>
                             <% if question.option==1 %>
-                                <%= q.radio_button ''+j.to_s+'][reply][0][content', v["content"], required: 'required'  %>
+                                <%= q.radio_button ''+j.to_s+'][reply][0][content', v["content"], required: 'required',
+                                                   id: 'radio'+ v["content"] %>
                             <% elsif question.option==2 %>
-                                <%= q.check_box ''+j.to_s+'][reply][' +i.to_s+'][content', {id: 'checkbox'}, v["content"], nil%>
+                                <%= q.check_box ''+j.to_s+'][reply][' +i.to_s+'][content', {id: 'checkbox'},
+                                                v["content"], nil %>
                             <% end %>
                             <%= v["content"] %></li>
                           <% i+=1 %>
@@ -46,7 +48,6 @@
                       </div>
                   <% end %>
                 </ul>
-
 
 
               </li>

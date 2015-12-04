@@ -25,13 +25,12 @@
     border: 0;
     overflow: hidden;
   }
-
 }
 
 /* горизонтальный слайдер (сама полоса по которой бегает ползунок) */
 .ui-slider-horizontal {
   height: 3px; /* задаем высоту согласно дизайна */
-  width: 110px;
+  width: 100px;
 
   /* позиционируем ползунки */
   .ui-slider-handle {
@@ -42,12 +41,6 @@
   .ui-slider-range {
     top: 0;
     height: 100%;
-  }
-
-
-
-  .ui-slider-range-max {
-    right: 0;
   }
 }
 
@@ -70,8 +63,7 @@
 }
 
 #amount {
-
   background: white;
   font-weight: bold;
-  width: 110px
+  width: 100px
 }

@@ -8,7 +8,7 @@ $(document).ready(
         $("#slider-range").slider({
             range: "min",
             min: min,
-            step: 0.01,
+            step: 1,
             max: max,
             value: def,
             slide: function (event, ui) {
@@ -19,15 +19,13 @@ $(document).ready(
     })
 )
 
-
 $(document).on('click', '.respond_submit', function (e) {
-    var flag = false;
-    var checkbox_present=false;
+    var is_something_checked = false;
     $(document).find('input#checkbox').each(function () {
-        if ($(this).prop('checked'))       flag = true;
-        if ($(this).prop('id')!=undefined)       checkbox_present = true;
+        if ($(this).prop('checked'))
+            is_something_checked = true;
     });
-    if (!flag&&checkbox_present) {
+    if (!is_something_checked) {
         alert("You must to pick something from checkbox answers!");
         e.preventDefault();
     }
