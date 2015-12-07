@@ -18,7 +18,7 @@
             <% i+=1 %>
         <% end %>
     <% end %>
-    <% answers=answers.html_safe%>
+    <% answers=answers.html_safe %>
     <% if question.option==1 %>
         <ul><%= answers %></ul>
     <% else %>
@@ -27,18 +27,18 @@
   </div>
 
   <div class="col-md-7 respond">
-    <% fa=find_responds_by_survey_and_question(@survey.id, question.id) %>
-    <% fa.each do |f| %>
-        <% objArray = ActiveSupport::JSON.decode(f.content) %>
-        <% objArray.each do |k, v| %>
-            <div class="col-md-3 text-left">
-              <%= v['content'] %>
-            </div>
-            <div class="col-md-9 text-left">
-              <%= find_user(f.user_id).email %>
-            </div>
+    <% responds_with_json=find_responds_by_survey_and_question(@survey.id, question.id).group(:content).count %>
+    <% responds_normalized=[] %>
+    <% responds_with_json.each do |k1, v1| %>
+        <% buf='' %>
+        <% respond= ActiveSupport::JSON.decode(k1) %>
+        <% respond.each do |k2, v2| %>
+            <% buf+= v2['content']+', ' %>
         <% end %>
+        <% buf=buf[0, buf.size-2] %>
+        <% responds_normalized.push(buf, v1.to_s) %>
     <% end %>
+    <%= pie_chart Hash[*responds_normalized.flatten], height: '200px'%>
   </div>
 
 </div>

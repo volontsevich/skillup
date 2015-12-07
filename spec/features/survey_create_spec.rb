@@ -59,10 +59,10 @@ describe 'Creates survey and respond', :type => :feature do
     first('.ui-slider-handle').drag_by(37, 0) # (37, 0) moves slider to value '40'
     find('input[name="commit"]').click
     find('div.col-md-1.clickable-area h4').click
-    expect(page).to have_css('div.respond', text: 'Answer1 '+@user.email)
-    expect(page).to have_css('div.respond', text: 'Answer2 '+@user.email)
-    expect(page).to have_css('div.respond', text: 'Wow '+@user.email)
-    expect(page).to have_css('div.respond', text: '40 '+@user.email)
+    expect(page).to have_content('Answer1100%')
+    expect(page).to have_content('Answer2100%')
+    expect(page).to have_content('Wow100%')
+    expect(page).to have_content('40100%')
   end
 
   def create_user_and_login
