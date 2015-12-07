@@ -4,14 +4,6 @@ class SurveysController < ApplicationController
                 only: [:show, :edit, :update, :destroy]
   before_filter :find_surveys, only: :index
 
-  def index
-
-  end
-
-  def show
-
-  end
-
   def new
     @survey = Survey.new
     @survey.questions.build
@@ -19,6 +11,14 @@ class SurveysController < ApplicationController
 
   def create
     create_survey
+  end
+
+  def index
+
+  end
+
+  def show
+
   end
 
   def edit
@@ -33,10 +33,7 @@ class SurveysController < ApplicationController
 
   def destroy
     @survey.destroy
-    respond_to do |format|
-      format.html { redirect_to(surveys_url) }
-      format.xml { head :ok }
-    end
+    redirect_to surveys_index_path
   end
 
   private
@@ -53,12 +50,11 @@ class SurveysController < ApplicationController
 
   def change_params_to_json
     if params[:survey][:questions_attributes].present?
-    params[:survey][:questions_attributes].each do |k, v|
-      v[:meta]=v[:answers_attributes].to_json
-      v[:meta]="" if v[:meta]=="null"
-
-    end
+      params[:survey][:questions_attributes].each do |k, v|
+        v[:meta]=v[:answers_attributes].to_json
+        v[:meta]="" if v[:meta]=="null"
       end
+    end
   end
 
   def survey_params

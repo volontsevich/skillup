@@ -16,10 +16,20 @@ Question.create(id: 1, survey_id: 1, option: 1, content: 'Question one', meta: '
 "1":{"content":"Answer1"},
 "2":{"content":"Answer2"},
 "3":{"content":"Answer3"}}')
+Question.create(id: 2, survey_id: 1, option: 2, content: 'Question two', meta: '{
+"1":{"content":"Answer4"},
+"2":{"content":"Answer5"},
+"3":{"content":"Answer6"}}')
+Question.create(id: 3, survey_id: 1, option: 3, content: 'Question three', meta: '')
+Question.create(id: 4, survey_id: 1, option: 4, content: 'Question four', meta: '{
+"0":{"content":"1"},
+"1":{"content":"100"},
+"2":{"content":"50"}}')
+
 SurveyMail.create(survey_id: 1, address: 'email 1')
 
 Survey.create(id: 2, name: 'Second survey', user_id: 1)
-Question.create(id: 2, survey_id: 2, option: 1, content: 'Question two', meta: '{
+Question.create(id: 5, survey_id: 2, option: 1, content: 'Question two', meta: '{
 "1":{"content":"Answer4"},
 "2":{"content":"Answer5"},
 "3":{"content":"Answer6"}}')

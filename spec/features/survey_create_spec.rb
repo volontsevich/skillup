@@ -24,12 +24,10 @@ describe 'Creates survey and respond', :type => :feature do
     make_question_with_answers('New Question3', 3, 0, types['text'])
     create_question_slider('New Question4', 4, 1, 3, 2)
     find('input[name="commit"]').click
-
     expect(page).to have_css('div.col-md-5', text: 'New Question4 Min value 1 Max value 3 By default 2')
     expect(page).to have_css('div.col-md-5', text: 'New Question3')
     expect(page).to have_css('div.col-md-5', text: 'New Question2 Answer2 Answer3')
     expect(page).to have_css('div.col-md-5', text: 'New Question1 Answer2 Answer3')
-
     expect(page).to have_content 'By default 2'
   end
 
@@ -59,9 +57,8 @@ describe 'Creates survey and respond', :type => :feature do
     choose('radio'+'Answer1', visible: false)
     fill_in 'respond[questions][2][reply][0][content]', with: 'Wow'
     first('.ui-slider-handle').drag_by(37, 0) # (37, 0) moves slider to value '40'
-    #sleep 10
     find('input[name="commit"]').click
-    click_link '1'
+    find('div.col-md-1.clickable-area h4').click
     expect(page).to have_css('div.respond', text: 'Answer1 '+@user.email)
     expect(page).to have_css('div.respond', text: 'Answer2 '+@user.email)
     expect(page).to have_css('div.respond', text: 'Wow '+@user.email)

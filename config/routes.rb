@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'widget/copy'
 
   devise_for :users
   namespace :admin do
@@ -12,7 +11,7 @@ Rails.application.routes.draw do
   resources :responds
   resources :surveys
   resources :questions
-  root to: "surveys#index"
+  root to: 'surveys#index'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

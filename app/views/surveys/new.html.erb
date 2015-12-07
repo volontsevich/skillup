@@ -1,16 +1,20 @@
+<h1 class="text-center">Creating new survey</h1>
+
 <%= form_for @survey do |f| %>
 
     <p>
-      <%= f.label :name, "Survey name" %><br/>
-      <%= f.text_field :name, required: 'required'%>
+      <%= f.label :name, 'Survey name' %><br/>
+      <%= f.text_field :name, required: 'required' %>
     </p>
 
     <ol class="new_question" id="questions_start">
-        <%= link_to "Add Question", "#", class: "add_question" %>
-
+      <%= link_to 'Add Question', '#', class: 'add_question' %>
     </ol>
-    <p><%= f.submit 'Submit', class: 'survey_submit btn btn-primary' %></p>
+
+    <p>
+      <%= f.submit 'Submit', class: 'survey_submit btn btn-primary' %>
+    </p>
 
 <% end %>
-
+<%= link_to 'Back', :back %>
 

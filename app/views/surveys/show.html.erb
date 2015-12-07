@@ -1,4 +1,4 @@
-<% if (current_user.admin? or @survey.user_id==current_user.id)and(!@survey.nil?) %>
+<% if (current_user.admin? || @survey.user_id==current_user.id)&&(!@survey.nil?) %>
     <h1 class="text-center">Survey page</h1>
     <div class="row">
       <div class="col-md-5">
@@ -28,12 +28,12 @@
     </ol>
 
     <p>
-      <%= link_to "Answer", new_respond_path(:survey => @survey), class: "btn btn-primary", style: 'width: 80px' %>
-      <%= link_to "Edit", edit_survey_path(@survey), class: "btn btn-primary", style: 'width: 80px' %>
-      <%= link_to "Destroy", @survey, confirm: 'Are you sure?', method: :delete, class: "btn btn-primary" %>
-      <%= link_to "View All", surveys_path, class: "btn btn-primary" %>
+      <%= link_to 'Answer', new_respond_path(:survey => @survey), class: 'btn btn-primary', style: 'width: 80px' %>
+      <%= link_to 'Edit', edit_survey_path(@survey), class: 'btn btn-primary', style: 'width: 80px' %>
+      <%= link_to 'Destroy', @survey, confirm: 'Are you sure?', method: :delete, class: 'btn btn-primary' %>
+      <%= link_to 'View All', surveys_path, class: 'btn btn-primary' %>
     </p>
-    <%= link_to "Back", :back %>
+    <%= link_to 'Back', :back %>
 <% else %>
     <h1 class="text-center">You can't see this survey!</h1>
 <% end %>

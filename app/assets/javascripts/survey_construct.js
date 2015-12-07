@@ -1,24 +1,23 @@
 $(document).on('click', '.add_question', function () {
+    var question_types = ["Radio", "Checkbox", "Text", "Slider"];
     var questions = parseInt(get_max_index_of_questions(this)) + 1;
     var address = 'survey[questions_attributes][' + questions + ']';
-    $(this).parent().prepend(
-        '<div class="QuestionBlock">' +
+    var content = '<div class="QuestionBlock">' +
         '<label for="sqa_' + questions + '_content">Question</label><br/>' +
         '<input class="question" type="text" name="' + address + '[content]" ' +
         'id="sqa_' + questions + '_content" required="required" />' +
         '<a id="sqa_' + questions + '_content_remove" class="remove_item" href="#">Remove</a><br>' +
-        '<select name="' + address + '[option]" id="sqa_' + questions + '_option" class="question_type">' +
-        '<option selected="selected" value="1">Radio</option>' +
-        '<option value="2">Checkbox</option>' +
-        '<option value="3">Text</option>' +
-        '<option value="4">Slider</option>' +
-        '</select><br>' +
+        '<select name="' + address + '[option]" id="sqa_' + questions + '_option" class="question_type">';
+    for (var i = 0; i < question_types.length; i++)
+        content += '<option value="' + (i + 1) + '">' + question_types[i] + '</option>';
+    content += '</select><br>' +
         '<div class="answers">' +
         '<ol></ol>' +
         '</div>' +
         '<a id="sqa_' + questions + '_answer_add" class="add_answer" href="#">Add Answer</a><br>' +
         '<hr style="border-color: black;">' +
-        '</div>');
+        '</div>';
+    $(content).insertBefore($('.add_question'));
 });
 
 $(document).on('click', '.add_answer', function () {
@@ -30,6 +29,15 @@ $(document).on('click', '.add_answer', function () {
             generate_answer_html(question_type, index, $(this).parent().find('.question_type').attr('name')));
     }
 });
+
+$(document).on('click', '.clickable-area', function () {
+    window.document.location = $(this).data("href");
+});
+
+$(document).on('mouseover', '.clickable-area', function () {
+    $('.clickable-area').css('cursor', 'pointer');
+});
+
 
 $(document).on('click', '.survey_submit', function (e) {
     var slider_present = false;
@@ -46,7 +54,7 @@ $(document).on('click', '.survey_submit', function (e) {
             i += 1;
         });
         if (!(d[0] <= d[2] && d[2] <= d[1])) {
-            alert("Wrong values!");
+            alert("Wrong slider values!");
             e.preventDefault();
         }
     }
@@ -82,22 +90,22 @@ function generate_answer_html(question_type, index, name) {
         'id="' + id + '" required="required"/>' +
         '<a id="' + id + '_remove" class="remove_item" href="#">Remove</a>';
     var ready_content;
-    if (question_type == 1) {
+    if (question_type == 1 || question_type == 2) {
         ready_content = $('<li>' + inner_content + '</li>');
     }
-    else if (question_type == 2 || question_type == 3) {
+    else if (question_type == 3) {
         ready_content = $('<h5>' + inner_content + '</h5>');
     }
     else if (question_type == 4) {
         var labels = ['Min Answer', 'Max Answer', 'Default value'];
         ready_content = '<h5>';
         for (var i = 0; i < labels.length; i++) {
-            var id = 'sqa_' + survey_index + '_a_'+i;
+            var id = 'sqa_' + survey_index + '_a_' + i;
             ready_content += '<label for="' + id + '">' + labels[i] + '</label>' +
                 '<input class="answer slider" type="text" name="' + inner_address + '[answers_attributes][' + i + '][content]" ' +
                 'id="' + id + '" /><br/>';
         }
-        ready_content +='<a id="' + id + '0_remove" class="remove_item" href="#">Remove</a></h5>';
+        ready_content += '<a id="' + id + '0_remove" class="remove_item" href="#">Remove</a></h5>';
     }
     return $(ready_content);
 }

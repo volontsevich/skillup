@@ -1,45 +1,19 @@
-<h1 class="text-center">All users</h1>
-<div class="row">
-  <div class="col-md-1 text-center"><h3>id</h3></div>
-  <div class="col-md-2 text-left clickable-area"><h3>Email</h3></div>
-  <div class="col-md-1 text-left"><h3>Admin</h3></div>
-  <div class="col-md-8 text-left"></div>
-</div>
-<hr style="border-color: black;">
-<% @users.each do |user| %>
+<% if current_user.admin? %>
+
+    <h1 class="text-center">All users</h1>
+
     <div class="row">
-      <div class="col-md-1 text-center"><h4><%= user.id %></h4></div>
-      <div class="col-md-2 text-left"><h4><%= user.email %></h4></div>
-      <div class="col-md-1 text-center">
-        <% if user.admin? %>
-            <%= form_for(user, url: admin_user_path(user), html: {method: :put, autocomplete: "off"}) do |f| %>
-                <div class="field">
-                  <%= f.check_box :admin, class: 'btn btn-danger' %>
-                </div>
-                <div class="actions">
-                  <%= f.submit "Update" %>
-                </div>
-            <% end %>
-        <% else %>
-            <%= form_for(user, url: admin_user_path(user), html: {method: :put, autocomplete: "off"}) do |f| %>
-                <div class="field">
-                  <%= f.check_box :admin, class: 'btn btn-danger' %>
-                </div>
-                <div class="actions">
-                  <%= f.submit "Update" %>
-                </div>
-            <% end %>
-        <% end %>
-      </div>
-      <div class="col-md-1 text-left"><h4><%= link_to "Surveys", admin_user_path(user), class: "btn btn-primary" %></h4>
-      </div>
-      <div class="col-md-1 text-left">
-        <h4><%= link_to "Destroy", admin_user_path(user), confirm: 'Are you sure?', method: :delete, class: "btn btn-primary" %></h4>
-      </div>
-      <div class="col-md-6 text-left">
-        <h4><%= link_to "Edit password", edit_admin_user_path(user), class: "btn btn-primary", style: 'width: 110px' %></h4>
-      </div>
+      <div class="col-md-1 text-center"><h3>id</h3></div>
+      <div class="col-md-3 text-left clickable-area"><h3>Email</h3></div>
+      <div class="col-md-1 text-left"><h3>Admin</h3></div>
+      <div class="col-md-8 text-left"></div>
     </div>
 
+    <hr style="border-color: black;">
+
+    <% @users.each do |user| %>
+        <%= render 'admin/users/user', user: user %>
+    <% end %>
+
+    <%= link_to 'New', new_admin_user_path, class: 'btn btn-primary' %>
 <% end %>
-<%= link_to "New", new_admin_user_path, class: "btn btn-primary" %>
