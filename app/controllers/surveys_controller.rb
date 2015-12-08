@@ -2,6 +2,7 @@ class SurveysController < ApplicationController
   before_action :authenticate_user!, except: :index
   before_filter :find_survey,
                 only: [:show, :edit, :update, :destroy]
+  before_filter :find_survey_emails, only: [:show]
   before_filter :find_surveys, only: :index
 
   def new
@@ -36,7 +37,14 @@ class SurveysController < ApplicationController
     redirect_to surveys_index_path
   end
 
+
+
+
+
   private
+  def find_survey_emails
+    @emails=SurveyMail.where('survey_id=?', @survey.id).select(:address)
+  end
 
   def create_survey
     change_params_to_json
@@ -58,7 +66,8 @@ class SurveysController < ApplicationController
   end
 
   def survey_params
-    params.require(:survey).permit(:id, :name, :user_id, questions_attributes: [:id, :content, :option, :meta])
+    params.require(:survey).permit(:id, :name, :user_id, :send_date, :start_date, :exp_date, questions_attributes: [:id, :content, :option, :meta],
+                                   survey_mails_attributes: [:id, :address])
   end
 
   def find_survey

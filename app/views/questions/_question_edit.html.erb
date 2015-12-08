@@ -2,9 +2,9 @@
   <%= q.label 'Question' %><br/>
   <%= q.text_field :content, class: 'question' %>
   <%= link_to 'Remove', question_destroy_path(q.object.id), confirm: 'Are you sure?',
-              method: :delete, remote: true, class: 'remove_item', id: 'remove_question_'+ q.options[:child_index].to_s %>
+              method: :delete, remote: true, class: 'remove_item', id: "remove_question_#{q.options[:child_index].to_s}" %>
   <br/>
-  <%= q.select :option, options_for_select(options, :selected => q.object.option), {}, {class: 'question_type'} %>
+  <%= q.select :option, options_for_select(options, selected: q.object.option), {}, {class: 'question_type'} %>
   <div class='answers'>
     <ol>
       <% if q.object.meta.length!=0 %>
@@ -23,17 +23,16 @@
                     <%= q.label 'By default' if i==2 %>
                 <% end %>
 
-                <%= q.text_field :meta, :value => v['content'], :name => 'survey[questions_attributes]['+
-                    q.options[:child_index].to_s+'][answers_attributes][' +i.to_s+'][content]',
-                                 class: input_class, id: 'sqa_'+question_index+'_a_'+i.to_s %>
+                <%= q.text_field :meta, value: v['content'], name: "survey[questions_attributes][#{q.options[:child_index].to_s}][answers_attributes][#{i.to_s}][content]",
+                                 class: input_class, id: "sqa_#{question_index}_a_#{i.to_s}" %>
                 <% if q.object.option!=4 %>
-                    <%= link_to 'Remove', '#', class: 'remove_item', id: 'remove_answer_'+ question_index+'_'+i.to_s %>
+                    <%= link_to 'Remove', '#', class: 'remove_item', id: "remove_answer_#{question_index}_#{i.to_s}" %>
                 <% end %>
               </li>
               <% i+=1 %>
           <% end %>
           <% if q.object.option==4 %>
-              <%= link_to 'Remove', '#', class: 'remove_item', id: 'remove_answer_'+ question_index+'_'+i.to_s %>
+              <%= link_to 'Remove', '#', class: 'remove_item', id: "remove_answer_#{question_index}_#{i.to_s}" %>
           <% end %>
       <% end %>
     </ol>

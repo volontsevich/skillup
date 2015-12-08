@@ -30,6 +30,15 @@ $(document).on('click', '.add_answer', function () {
     }
 });
 
+$(document).on('click', '.add_email', function () {
+    var check = ($(this).parent().find('.emails .email').attr('id') == undefined);
+    var index = parseInt(get_max_index_of_emails(this));
+    if (!check) {
+        $(this).parent().find('.emails ol').append(
+            generate_email_html(index));
+    }
+});
+
 $(document).on('click', '.clickable-area', function () {
     window.document.location = $(this).data("href");
 });
@@ -70,6 +79,16 @@ function get_max_index_of_answers(obj) {
     return max_index;
 }
 
+function get_max_index_of_emails(obj) {
+    var max_index = 0;
+    $(obj).parent().find('.emails .email').each(function () {
+        var current_index = $(this).attr('name');
+        current_index = current_index.substring(current_index.indexOf('survey_mails_attributes') + 25, current_index.length - 10);
+        if (current_index > max_index) max_index = current_index;
+    });
+    return max_index;
+}
+
 function get_max_index_of_questions(obj) {
     var max_index = 0;
     $(obj).parent().find('.question').each(function () {
@@ -78,6 +97,14 @@ function get_max_index_of_questions(obj) {
         if (current_index > max_index) max_index = current_index;
     });
     return max_index;
+}
+
+function generate_email_html(index) {
+    return $('<li><label for="survey_survey_mails_attributes_' + (index + 1) + '_address">Address</label>' +
+        '<input class="email" name="survey[survey_mails_attributes][' + (index + 1) + '][address]"' +
+        ' id="survey_survey_mails_attributes_' + (index + 1) + '_address" type="text">' +
+        '<a class="remove_item" id="remove_email_'+(index + 1)+'" href="#">Remove</a>' +
+        '</li>');
 }
 
 function generate_answer_html(question_type, index, name) {

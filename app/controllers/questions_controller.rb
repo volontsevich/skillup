@@ -8,6 +8,6 @@ class QuestionsController < ApplicationController
 
   private
   def find_question
-    @question=Question.find(params[:format])
+    @question = Question.find(params[:format])
   end
 end

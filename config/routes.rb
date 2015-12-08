@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'survey_mails/destroy'
+
   devise_for :users
   namespace :admin do
     resources :users
@@ -7,7 +9,9 @@ Rails.application.routes.draw do
 
   get 'surveys/index'
   delete 'question_destroy' => 'questions#destroy'
+  delete 'survey_mail_destroy' => 'survey_mails#destroy'
   put 'admin/users' => 'users#update'
+  get 'survey_mails/:id/send', to: 'survey_mails#send_mail', as: 'send_survey_mail'
   resources :responds
   resources :surveys
   resources :questions

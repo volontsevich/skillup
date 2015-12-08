@@ -37,6 +37,7 @@ group :development, :test do
   gem 'byebug'
 end
 gem 'chartkick'
+gem 'mandrill-api', '~> 1.0.53', require: 'mandrill'
 group :test do
   gem 'rspec-rails'
   gem 'capybara'

@@ -3,14 +3,46 @@
       <%= f.label :name, 'Survey name' %><br/>
       <%= f.text_field :name %>
     </p>
+    <div class="row">
+      <div class="col-md-6">
+        <ol>
+          <%= f.fields_for :questions do |q| %>
+              <%= render 'questions/question_edit', q: q %>
+          <% end %>
+          <%= link_to 'Add Question', '#', class: 'add_question' %>
+        </ol>
+      </div>
+      <div id="d" class="col-md-6">
 
-    <ol>
-      <%= f.fields_for :questions do |q| %>
-          <%= render 'questions/question_edit', q: q %>
-      <% end %>
-      <%= link_to 'Add Question', '#', class: 'add_question' %>
-    </ol>
+        <div class="dates">
+          <%= f.label :send_date %><br>
+          <%= f.date_select :send_date %><br>
+          <%= f.label :start_date %><br>
+          <%= f.date_select :start_date %><br>
+          <%= f.label :exp_date %><br>
+          <%= f.date_select :exp_date %>
+          <br>
 
+          <div style="height: 20px;"></div>
+
+        </div>
+        <div class="emails">
+          <span class="survey_extra_info">Email addresses</span>
+          <ol>
+            <%= f.fields_for :survey_mails do |s| %>
+                <li>
+                  <%= s.label :address %>
+                  <%= s.text_field :address, value: s.object.address, class: 'email' %>
+                  <%= link_to 'Remove', survey_mail_destroy_path(s.object.id), confirm: 'Are you sure?',
+                              method: :delete, remote: true, class: 'remove_item', id: "remove_email_#{s.options[:child_index].to_s}" %>
+
+                </li>
+            <% end %>
+          </ol>
+        </div>
+        <%= link_to 'Add email', '#', class: 'add_email' %>
+      </div>
+    </div>
     <p>
       <%= f.submit 'Submit', class: 'survey_submit btn btn-primary' %>
     </p>
