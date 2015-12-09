@@ -22,10 +22,9 @@
           <%= f.label :exp_date %><br>
           <%= f.date_select :exp_date %>
           <br>
-
-          <div style="height: 20px;"></div>
-
+          <div class="buffer"></div>
         </div>
+
         <div class="emails">
           <span class="survey_extra_info">Email addresses</span>
           <ol>
@@ -35,17 +34,17 @@
                   <%= s.text_field :address, value: s.object.address, class: 'email' %>
                   <%= link_to 'Remove', survey_mail_destroy_path(s.object.id), confirm: 'Are you sure?',
                               method: :delete, remote: true, class: 'remove_item', id: "remove_email_#{s.options[:child_index].to_s}" %>
-
                 </li>
             <% end %>
           </ol>
         </div>
-        <%= link_to 'Add email', '#', class: 'add_email' %>
+        <%= link_to 'Add email', '#', class: 'add_email btn btn-primary action_button' %>
       </div>
     </div>
     <p>
-      <%= f.submit 'Submit', class: 'survey_submit btn btn-primary' %>
+      <%= f.submit 'Submit', class: 'survey_submit btn btn-primary action_button' %>
     </p>
 <% end %>
 
-<%= link_to 'Back', :back %>
+<%= link_to 'Back', :back, class: 'btn btn-danger action_button' %>
+<div id="pancakes"></div>

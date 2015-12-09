@@ -1,37 +1,29 @@
 <div class='QuestionBlock'>
   <%= q.label 'Question' %><br/>
   <%= q.text_field :content, class: 'question' %>
+  <% question_index = q.options[:child_index].to_s %>
   <%= link_to 'Remove', question_destroy_path(q.object.id), confirm: 'Are you sure?',
-              method: :delete, remote: true, class: 'remove_item', id: "remove_question_#{q.options[:child_index].to_s}" %>
+              method: :delete, remote: true, class: 'remove_item', id: "remove_question_#{question_index}" %>
   <br/>
-  <%= q.select :option, options_for_select(options, selected: q.object.option), {}, {class: 'question_type'} %>
+  <%= q.select :option, options_for_select(question_types, selected: q.object.option), {}, {class: 'question_type'} %>
   <div class='answers'>
     <ol>
       <% if q.object.meta.length!=0 %>
-          <% objArray = ActiveSupport::JSON.decode(q.object.meta) %>
-          <% i=0 %>
-          <% question_index=q.options[:child_index].to_s %>
-          <% objArray.each do |k, v| %>
+          <% i = 0 %>
+          <% @obj_array[q.options[:child_index]].each do |k, v| %>
               <li>
-                <% if q.object.option!=4 %>
-                    <% input_class='answer' %>
+                <% if q.object.option != question_types[:'Slider'] %>
                     <%= q.label 'Answer' %>
-                <% else %>
-                    <% input_class='answer slider' %>
-                    <%= q.label 'Min value' if i==0 %>
-                    <%= q.label 'Max value' if i==1 %>
-                    <%= q.label 'By default' if i==2 %>
-                <% end %>
-
-                <%= q.text_field :meta, value: v['content'], name: "survey[questions_attributes][#{q.options[:child_index].to_s}][answers_attributes][#{i.to_s}][content]",
-                                 class: input_class, id: "sqa_#{question_index}_a_#{i.to_s}" %>
-                <% if q.object.option!=4 %>
+                    <%= q.text_field :meta, value: v['content'], name: "survey[questions_attributes][#{question_index}][answers_attributes][#{i.to_s}][content]",
+                                     class: 'answer', id: "sqa_#{question_index}_a_#{i.to_s}" %>
                     <%= link_to 'Remove', '#', class: 'remove_item', id: "remove_answer_#{question_index}_#{i.to_s}" %>
+                <% else %>
+                    <%= render 'questions/question_slider_edit', q: q, i: i, v: v %>
                 <% end %>
               </li>
-              <% i+=1 %>
+              <% i += 1 %>
           <% end %>
-          <% if q.object.option==4 %>
+          <% if q.object.option == question_types[:'Slider'] %>
               <%= link_to 'Remove', '#', class: 'remove_item', id: "remove_answer_#{question_index}_#{i.to_s}" %>
           <% end %>
       <% end %>

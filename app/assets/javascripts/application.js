@@ -16,7 +16,7 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-ui
-
+//= require underscore
 //= require_tree .
 
 

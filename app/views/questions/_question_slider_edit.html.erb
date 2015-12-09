@@ -1,0 +1,6 @@
+<% question_index = q.options[:child_index].to_s %>
+<%= q.label 'Min value' if i == 0 %>
+<%= q.label 'Max value' if i == 1 %>
+<%= q.label 'By default' if i == 2 %>
+<%= q.text_field :meta, value: v['content'], name: "survey[questions_attributes][#{question_index}][answers_attributes][#{i.to_s}][content]",
+                 class: 'answer slider', id: "sqa_#{question_index}_a_#{i.to_s}" %>

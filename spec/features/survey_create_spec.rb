@@ -2,6 +2,7 @@ require 'rails_helper'
 require 'spec_helper'
 
 describe 'Creates survey and respond', :type => :feature do
+  include SurveysHelper
   before {
     @user=create_user_and_login
     @answers=%w(Answer1 Answer2 Answer3 Answer4)
@@ -14,14 +15,14 @@ describe 'Creates survey and respond', :type => :feature do
   end
 
   it 'create survey via user', :js => true do
+
     page.driver.browser.manage.window.maximize
     visit surveys_index_path
     click_link 'New'
     fill_in 'survey_name', with: 'New survey'
-    types={'radio' => '1', 'check_box' => '2', 'text' => '3', 'slider' => '4'}
-    make_question_with_answers('New Question1', 1, 2, types['radio'])
-    make_question_with_answers('New Question2', 2, 2, types['check_box'])
-    make_question_with_answers('New Question3', 3, 0, types['text'])
+    make_question_with_answers('New Question1', 1, 2, question_types[:'Radio'])
+    make_question_with_answers('New Question2', 2, 2, question_types[:'Checkbox'])
+    make_question_with_answers('New Question3', 3, 0, question_types[:'Text'])
     create_question_slider('New Question4', 4, 1, 3, 2)
     find('input[name="commit"]').click
     expect(page).to have_css('div.col-md-5', text: 'New Question4 Min value 1 Max value 3 By default 2')

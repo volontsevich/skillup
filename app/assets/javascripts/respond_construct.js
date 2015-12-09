@@ -1,16 +1,15 @@
 $(document).ready(
     $(function () {
-
-        var min = parseInt($("#slider_min").attr("class"));
-        var def = parseInt($("#slider_def").attr("class"));
-        var max = parseInt($("#slider_max").attr("class"));
-
+        var $sliderInput=$('#slider-input');
+        var $min = $sliderInput.data('min');
+        var $def = $sliderInput.data('def');
+        var $max = $sliderInput.data('max');
         $("#slider-range").slider({
             range: "min",
-            min: min,
+            min: $min,
             step: 1,
-            max: max,
-            value: def,
+            max: $max,
+            value: $def,
             slide: function (event, ui) {
                 $("#amount").val(ui.value);
             }
@@ -20,13 +19,13 @@ $(document).ready(
 )
 
 $(document).on('click', '.respond_submit', function (e) {
-    var is_something_checked = false;
+    var $is_something_checked = false;
     if ($(document).find('input#checkbox').length != 0) {
         $(document).find('input#checkbox').each(function () {
             if ($(this).prop('checked'))
-                is_something_checked = true;
+                $is_something_checked = true;
         });
-        if (!is_something_checked) {
+        if (!$is_something_checked) {
             alert("You must to pick something from checkbox answers!");
             e.preventDefault();
         }

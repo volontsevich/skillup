@@ -16,15 +16,15 @@
   <% end %>
 
   <div class="col-md-1 text-center">
-    <h4><%= link_to 'Answer', new_respond_path(:survey => survey), class: 'btn btn-primary' %></h4>
+    <h4><%= link_to 'Answer', new_respond_path(survey: survey), class: 'btn btn-primary action_button' %></h4>
   </div>
   <div class="col-md-1 text-center">
-    <h4><%= link_to 'Edit', edit_survey_path(survey), class: 'btn btn-primary', style: 'width: 80px' %></h4>
+    <h4><%= link_to 'Edit', edit_survey_path(survey), class: 'btn btn-primary action_button' %></h4>
   </div>
   <div class="col-md-1 text-left">
-    <h4><%= link_to 'Destroy', survey, confirm: 'Are you sure?', method: :delete, class: 'btn btn-primary' %></h4>
+    <h4><%= link_to 'Destroy', survey, confirm: 'Are you sure?', method: :delete, class: 'btn btn-primary action_button' %></h4>
   </div>
 
 </div>
 
-<hr style="border-color: black;">
+<hr class="hr_black">

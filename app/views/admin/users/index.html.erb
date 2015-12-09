@@ -9,11 +9,11 @@
       <div class="col-md-8 text-left"></div>
     </div>
 
-    <hr style="border-color: black;">
+    <hr class="hr_black">
 
     <% @users.each do |user| %>
         <%= render 'admin/users/user', user: user %>
     <% end %>
 
-    <%= link_to 'New', new_admin_user_path, class: 'btn btn-primary' %>
+    <%= link_to 'New', new_admin_user_path, class: 'btn btn-primary action_button' %>
 <% end %>

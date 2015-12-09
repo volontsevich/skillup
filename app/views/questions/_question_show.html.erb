@@ -1,45 +1,18 @@
 <div class="row">
   <div class="col-md-5">
     <li><%= question.content %></li>
-    <% answers= '' %>
-    <% if question.meta.length!=0 %>
-        <% objArray = ActiveSupport::JSON.decode(question.meta) %>
-        <% i=0 %>
-        <% objArray.each do |k, v| %>
-            <% if question.option==4 %>
-                <% answers+= '<li style="list-style-type: none;">' %>
-                <% answers+= 'Min value ' if i==0 %>
-                <% answers+= 'Max value ' if i==1 %>
-                <% answers+= 'By default ' if i==2 %>
-            <% else %>
-                <% answers+= '<li>' %>
-            <% end %>
-            <% answers+=v['content']+'</li>' %>
-            <% i+=1 %>
-        <% end %>
-    <% end %>
-    <% answers=answers.html_safe %>
-    <% if question.option==1 %>
-        <ul><%= answers %></ul>
+
+    <% if question.option == question_types[:'Radio'] %>
+        <ul><%= @answers[ind] %></ul>
     <% else %>
-        <ol><%= answers %></ol>
+        <ol><%= @answers[ind] %></ol>
     <% end %>
+
   </div>
 
   <div class="col-md-7 respond">
-    <% responds_with_json=find_responds_by_survey_and_question(@survey.id, question.id).group(:content).count %>
-    <% responds_normalized=[] %>
-    <% responds_with_json.each do |k1, v1| %>
-        <% buf='' %>
-        <% respond= ActiveSupport::JSON.decode(k1) %>
-        <% respond.each do |k2, v2| %>
-            <% buf+= v2['content']+', ' %>
-        <% end %>
-        <% buf=buf[0, buf.size-2] %>
-        <% responds_normalized.push(buf, v1.to_s) %>
-    <% end %>
-    <%= pie_chart Hash[*responds_normalized.flatten], height: '200px'%>
+    <%= pie_chart @responds_without_json[ind], height: '200px' %>
   </div>
 
 </div>
-<hr style="border-color: black;">
+<hr class="hr_black">

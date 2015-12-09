@@ -9,7 +9,7 @@ class RespondsController < ApplicationController
 
   def create
     if params[:respond].present?
-      respond_to_json
+      create_responds
     end
     redirect_to root_path
   end
@@ -19,7 +19,7 @@ class RespondsController < ApplicationController
     params.require(:respond)
   end
 
-  def respond_to_json
+  def create_responds
     params[:respond][:questions].each do |k, v|
       v[:content]=v[:reply].to_json
       v[:content]="" if v[:content]=="null"

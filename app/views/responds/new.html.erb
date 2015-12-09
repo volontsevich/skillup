@@ -5,53 +5,54 @@
       <strong>Survey </strong>
       <%= @survey.name %>
     </h4>
-    <hr style="border-color: black;">
+    <hr class="hr_black">
     <ol>
       <%= f.fields_for :questions do |q| %>
-          <% j=0 %>
+          <% j = 0 %>
           <% @survey.questions.each do |question| %>
               <li>
                 <%= q.hidden_field "#{j.to_s}][id", value: question.id %>
                 <%= q.hidden_field "#{j.to_s}][survey", value: @survey.id %>
                 <%= q.label question.content %><br/>
                 <ul>
-                  <% if question.meta.length!=0 && question.option!=3 && question.option!=4 %>
+                  <% if question.meta.length != 0 && question.option != question_types[:'Text'] &&
+                      question.option != question_types[:'Slider'] %>
                       <% objArray = ActiveSupport::JSON.decode(question.meta) %>
-                      <% i=0 if question.option==2 %>
+                      <% i = 0 if question.option == question_types[:'Checkbox'] %>
                       <% objArray.each do |k, v| %>
-                          <li style='list-style-type: none;'>
-                            <% if question.option==1 %>
+                          <li class="li_without_marker">
+                            <% if question.option == question_types[:'Radio'] %>
                                 <%= q.radio_button "#{j.to_s}][reply][0][content", v['content'], required: 'required',
                                                    id: "radio#{v['content']}" %>
-                            <% elsif question.option==2 %>
+                            <% elsif question.option == question_types[:'Checkbox'] %>
                                 <%= q.check_box "#{j.to_s}][reply][#{i.to_s}][content", {id: 'checkbox'},
                                                 v['content'], nil %>
                             <% end %>
                             <%= v['content'] %>
                           </li>
-                          <% i+=1 if question.option==2 %>
+                          <% i += 1 if question.option == question_types[:'Checkbox'] %>
                       <% end %>
-                  <% elsif question.option==3 %>
-                      <li style='list-style-type: none;'>
+                  <% elsif question.option == question_types[:'Text'] %>
+                      <li class="li_without_marker">
                         <%= q.text_field "#{j.to_s}][reply][0][content", required: 'required' %>
                       </li>
-                  <% elsif question.option==4 %>
+                  <% elsif question.option == question_types[:'Slider'] %>
                       <% objArray = ActiveSupport::JSON.decode(question.meta) %>
                       <div id="slider">
-                        <div id="slider_min" class=<%= objArray['0']['content'] %>></div>
-                        <div id="slider_max" class=<%= objArray['1']['content'] %>></div>
-                        <div id="slider_def" class=<%= objArray['2']['content'] %>></div>
+                        <input type="hidden" id="slider-input" data-min="<%= objArray['0']['content'] %>"
+                               data-def="<%= objArray['2']['content'] %>"
+                               data-max="<%= objArray['1']['content'] %>">
                         <%= q.text_field "#{j.to_s}][reply][0][content", readonly: true, id: 'amount' %>
                         <%= content_tag(:div, nil, id: 'slider-range') %>
                       </div>
                   <% end %>
                 </ul>
               </li>
-              <% j+=1 %>
+              <% j += 1 %>
           <% end %>
       <% end %>
     </ol>
-    <p><%= f.submit 'Submit', class: 'respond_submit btn btn-primary' %></p>
+    <p><%= f.submit 'Submit', class: 'respond_submit btn btn-primary action_button' %></p>
 <% end %>
 
-<%= link_to 'Back', :back %>
+<%= link_to 'Back', :back, class: 'btn btn-danger action_button' %>

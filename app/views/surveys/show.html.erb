@@ -1,22 +1,21 @@
-<% if (current_user.admin? || @survey.user_id==current_user.id)&&(!@survey.nil?) %>
+<% if (!@survey.nil?) && (current_user.admin? || @survey.user_id==current_user.id) %>
     <h1 class="text-center">Survey page</h1>
     <div class="row">
       <div class="col-md-5">
         <h4>
-          <strong>Survey </strong>
-          <%= @survey.name %>
+          <strong>Survey </strong><%= @survey.name %>
         </h4>
       </div>
       <div class="col-md-7 text-center">
         <h4>
-          <strong>Respond </strong>
+          <strong>Responds statistics</strong>
         </h4>
       </div>
     </div>
-    <hr style="border-color: black;">
+    <hr class="hr_black">
     <ol>
-      <% for question in @survey.questions %>
-          <%= render 'questions/question_show', question: question %>
+      <% @survey.questions.each_with_index do |question, index| %>
+          <%= render 'questions/question_show', question: question, ind: index %>
       <% end %>
     </ol>
     <div class="row">
@@ -27,6 +26,7 @@
             <p class="survey_extra_info"><%= email[:address] %></p>
         <% end %>
       </div>
+
       <div class="col-md-6">
         <h4>Dates:</h4>
 
@@ -38,13 +38,13 @@
       </div>
     </div>
     <p>
-      <%= link_to 'Send', send_survey_mail_path(@survey), class: 'btn btn-primary', style: 'width: 80px' %>
-      <%= link_to 'Answer', new_respond_path(survey: @survey), class: 'btn btn-primary', style: 'width: 80px' %>
-      <%= link_to 'Edit', edit_survey_path(@survey), class: 'btn btn-primary', style: 'width: 80px' %>
-      <%= link_to 'Destroy', @survey, confirm: 'Are you sure?', method: :delete, class: 'btn btn-primary' %>
-      <%= link_to 'View All', surveys_path, class: 'btn btn-primary' %>
+      <%= link_to 'Send', send_survey_mail_path(@survey), class: 'btn btn-primary action_button' %>
+      <%= link_to 'Answer', new_respond_path(survey: @survey), class: 'btn btn-primary action_button' %>
+      <%= link_to 'Edit', edit_survey_path(@survey), class: 'btn btn-primary action_button' %>
+      <%= link_to 'Destroy', @survey, confirm: 'Are you sure?', method: :delete, class: 'btn btn-primary action_button' %>
+      <%= link_to 'View All', surveys_path, class: 'btn btn-primary action_button' %>
     </p>
-    <%= link_to 'Back', :back %>
+    <%= link_to 'Back', :back, class: 'btn btn-danger action_button' %>
 <% else %>
     <h1 class="text-center">You can't see this survey!</h1>
 <% end %>

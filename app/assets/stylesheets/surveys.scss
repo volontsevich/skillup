@@ -5,14 +5,59 @@
 html, body {
   height: 100%;
 }
+
 #wrapper {
   min-height: 100%;
   height: auto !important;
   height: 100%;
   margin: 0 auto -35px;
 }
+
 .footer, #push {
   height: 35px;
-}.survey_extra_info{
+}
+
+.survey_extra_info {
   font-weight: bold;
- }
+}
+
+.hr_black {
+  border-color: black;
+}
+
+.action_button {
+  width: 80px;
+}
+
+.wide_action_button {
+  width: 115px;
+}
+
+.add_email {
+  width: 110px;
+}
+
+.buffer {
+  height: 20px;
+}
+
+.add_answer, .add_question, .remove_item {
+  background-color: #428BCA;
+  display: inline-block;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  color: white;
+  height: 20px;
+}
+
+.add_answer:active, .add_answer:focus, .add_question:active, .remove_item:active,
+.add_question:focus, .remove_item:focus {
+  text-decoration: none;
+  color: white;
+}
+
+.add_answer:hover, .add_question:hover, .remove_item:hover {
+  background-color: #3071A9;
+  text-decoration: none;
+  color: white;
+}
