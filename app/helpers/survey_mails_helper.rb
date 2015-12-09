@@ -1,0 +1,2 @@
+module SurveyMailsHelper
+end
