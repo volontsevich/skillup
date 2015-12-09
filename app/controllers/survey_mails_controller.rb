@@ -20,7 +20,6 @@ class SurveyMailsController < ApplicationController
   def find_survey_mails
     @survey = Survey.find(params[:id])
     @emails=SurveyMail.where('survey_id=?', @survey.id).select(:address)
-
   end
 
   def survey_mail_params
