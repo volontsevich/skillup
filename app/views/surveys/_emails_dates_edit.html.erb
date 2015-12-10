@@ -1,0 +1,27 @@
+<div class="dates">
+  <%= f.label :send_date %><br>
+  <%= f.date_select :send_date %><br>
+  <%= f.label :start_date %><br>
+  <%= f.date_select :start_date %><br>
+  <%= f.label :exp_date %><br>
+  <%= f.date_select :exp_date %>
+  <br>
+  <div class="buffer"></div>
+</div>
+
+<div class="emails">
+  <span class="survey_extra_info">Email addresses</span>
+  <ol>
+    <%= f.fields_for :survey_mails do |s| %>
+        <li>
+          <%= s.label :address %>
+          <%= s.text_field :address, value: s.object.address, class: 'email' %>
+          <% send_status = s.object.sent || false%>
+          <%= s.radio_button :sent, value: send_status %>
+          <%= link_to 'Remove', survey_mail_destroy_path(s.object.id), confirm: 'Are you sure?',
+                      method: :delete, remote: true, class: 'remove_item', id: "remove_email_#{s.options[:child_index].to_s}" %>
+        </li>
+    <% end %>
+  </ol>
+</div>
+<%= link_to 'Add email', '#', class: 'add_email btn btn-primary action_button' %>

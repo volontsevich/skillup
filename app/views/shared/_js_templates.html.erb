@@ -1,0 +1,51 @@
+<div id="question_part_1" style="display: none">
+  <div class="QuestionBlock">
+    <label for="sqa_{{= questions}}_content">Question</label>
+    <br/>
+    <input class="question" type="text" name="{{=address}}[content]" id="sqa_{{= questions}}_content"
+           required="required"/><a id="sqa_{{= questions}}_content_remove" class="remove_item" href="#">Remove</a><br>
+    <select name="{{=address}}[option]" id="sqa_{{= questions}}_option" class="question_type">
+      {{=inner_content}}
+    </select>
+    <br/>
+
+    <div class="answers">
+      <ol></ol>
+    </div>
+
+    <a id="sqa_{{= questions}}_answer_add" class="add_answer" href="#">Add Answer</a>
+    <br/>
+    <hr style="border-color: black;">
+
+  </div>
+</div>
+
+<div id="question_part_2" style="display: none">
+  <option value="{{= v }}">{{=k}}</option>
+</div>
+
+<div id="email_content" style="display: none">
+  <li>
+    <label for="survey_survey_mails_attributes_{{=index}}_address">Address</label>
+    <input class="email" name="survey[survey_mails_attributes][{{=index}}][address]"
+           id="survey_survey_mails_attributes_{{=index}}_address" type="text">
+    <input value="false" name="survey[survey_mails_attributes][{{=index}}][sent]"
+           id="survey_survey_mails_attributes_{{=index}}_sent">
+    <a class="remove_item" id="remove_email_{{=index}}" href="#">Remove</a>
+  </li>
+</div>
+
+<div id="answer_content" style="display: none">
+  <label for="{{=id}}">Answer</label>
+  <input class="answer" type="text" name="{{=inner_address}}[answers_attributes][{{=new_survey_index}}][content]"
+         id="{{=id}}" required="required"/>
+  <a id="{{=id}}_remove" class="remove_item" href="#">Remove</a>
+</div>
+
+<div id="answer_slider_content" style="display: none">
+  <li>
+    <label for="{{=id}}">{{=label}}</label>
+    <input class="answer slider" type="text" name="{{=inner_address}}[answers_attributes][{{=i}}][content]"
+           id="{{=id}}"/>
+  </li>
+</div>

@@ -6,11 +6,16 @@
       <%= f.label :name, 'Survey name' %><br/>
       <%= f.text_field :name, required: 'required' %>
     </p>
-
-    <ol class="new_question" id="questions_start">
-      <%= link_to 'Add Question', '#', class: 'add_question' %>
-    </ol>
-
+    <div class="row">
+      <div class="col-md-6">
+        <ol class="new_question" id="questions_start">
+          <%= link_to 'Add Question', '#', class: 'add_question' %>
+        </ol>
+      </div>
+      <div id="d" class="col-md-6">
+        <%= render 'surveys/emails_dates_edit', f: f %>
+      </div>
+    </div>
     <p>
       <%= f.submit 'Submit', class: 'survey_submit btn btn-primary action_button' %>
     </p>

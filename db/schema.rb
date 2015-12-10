@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151201124105) do
+ActiveRecord::Schema.define(version: 20151210132212) do
 
   create_table "questions", force: :cascade do |t|
     t.integer  "survey_id",  limit: 4
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20151201124105) do
     t.string   "address",    limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.boolean  "sent"
   end
 
   add_index "survey_mails", ["survey_id"], name: "index_survey_mails_on_survey_id", using: :btree

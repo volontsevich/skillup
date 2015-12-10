@@ -17,9 +17,8 @@
                 <ul>
                   <% if question.meta.length != 0 && question.option != question_types[:'Text'] &&
                       question.option != question_types[:'Slider'] %>
-                      <% objArray = ActiveSupport::JSON.decode(question.meta) %>
                       <% i = 0 if question.option == question_types[:'Checkbox'] %>
-                      <% objArray.each do |k, v| %>
+                      <% @obj_array[j].each do |k, v| %>
                           <li class="li_without_marker">
                             <% if question.option == question_types[:'Radio'] %>
                                 <%= q.radio_button "#{j.to_s}][reply][0][content", v['content'], required: 'required',
@@ -37,11 +36,10 @@
                         <%= q.text_field "#{j.to_s}][reply][0][content", required: 'required' %>
                       </li>
                   <% elsif question.option == question_types[:'Slider'] %>
-                      <% objArray = ActiveSupport::JSON.decode(question.meta) %>
                       <div id="slider">
-                        <input type="hidden" id="slider-input" data-min="<%= objArray['0']['content'] %>"
-                               data-def="<%= objArray['2']['content'] %>"
-                               data-max="<%= objArray['1']['content'] %>">
+                        <input type="hidden" id="slider-input" data-min="<%= @obj_array[j]['0']['content'] %>"
+                               data-def="<%= @obj_array[j]['2']['content'] %>"
+                               data-max="<%= @obj_array[j]['1']['content'] %>">
                         <%= q.text_field "#{j.to_s}][reply][0][content", readonly: true, id: 'amount' %>
                         <%= content_tag(:div, nil, id: 'slider-range') %>
                       </div>

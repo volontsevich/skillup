@@ -51,4 +51,4 @@ production:
   <<: *default
   database: skill_up
   username: user_skill
-  password: <%= ENV['SKILLUP_DATABASE_PASSWORD'] %>
+  password: password

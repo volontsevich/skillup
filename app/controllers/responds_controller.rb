@@ -1,10 +1,14 @@
 class RespondsController < ApplicationController
+  include My
   before_action :authenticate_user!
 
   def new
     @survey_id=params[:survey]
     @survey=Survey.find(@survey_id)
     @respond = Respond.new
+
+    get_obj_array
+
   end
 
   def create

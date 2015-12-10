@@ -23,7 +23,11 @@
       <div class="col-md-6">
         <h4>Emails:</h4>
         <% @emails.each do |email| %>
-            <p class="survey_extra_info"><%= email[:address] %></p>
+            <p class="survey_extra_info"><%= email[:address] %>
+              <%# debugger%>
+              <%= ' -- sent' if email[:sent] %>
+              <%= ' -- not sent' if !email[:sent] %>
+            </p>
         <% end %>
       </div>
 

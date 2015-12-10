@@ -3,6 +3,10 @@ class SurveyMailsController < ApplicationController
   before_filter :find_survey_mail, only: :destroy
   before_filter :find_survey_mails, only: :send_mail
 
+  def new
+    debugger
+  end
+
   def destroy
     @survey_mail.destroy
   end
@@ -23,6 +27,6 @@ class SurveyMailsController < ApplicationController
   end
 
   def survey_mail_params
-    params.require(:survey_mail).permit(:id, :address)
+    params.require(:survey_mail).permit(:id, :address, :sent)
   end
 end

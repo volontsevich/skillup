@@ -5,6 +5,7 @@ class SurveysController < ApplicationController
   before_filter :find_survey_emails, only: [:show]
   before_filter :find_surveys, only: :index
   include SurveysHelper
+  include My
 
   def new
     @survey = Survey.new
@@ -26,15 +27,7 @@ class SurveysController < ApplicationController
 
 
   def edit
-    @obj_array=[]
-    @survey.questions.each_with_index do |q, i|
-      if q.meta.length != 0
-        @obj_array.push( ActiveSupport::JSON.decode(q.meta))
-      else
-        @obj_array.push( 0)
-      end
-    end
-
+    get_obj_array
   end
 
   def update
@@ -71,6 +64,7 @@ class SurveysController < ApplicationController
       end
       @answers.push(answers.to_s.html_safe)
     end
+
   end
 
   def responds_without_json
@@ -92,8 +86,7 @@ class SurveysController < ApplicationController
   end
 
   def find_survey_emails
-    @emails=SurveyMail.where('survey_id=?', @survey.id).select(:address)
-    @emails=SurveyMail.for_survey(@survey.id).select(:address)
+    @emails=SurveyMail.for_survey(@survey.id)
   end
 
   def create_survey
@@ -116,7 +109,7 @@ class SurveysController < ApplicationController
 
   def survey_params
     params.require(:survey).permit(:id, :name, :user_id, :send_date, :start_date, :exp_date,
-                                   questions_attributes: [:id, :content, :option, :meta], survey_mails_attributes: [:id, :address])
+                                   questions_attributes: [:id, :content, :option, :meta], survey_mails_attributes: [:id, :address, :sent])
   end
 
   def find_survey
