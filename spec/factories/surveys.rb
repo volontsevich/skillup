@@ -3,7 +3,7 @@ FactoryGirl.define do
 
   factory :survey do
     name { Faker::Name.name }
-
+    exp_date  Date.current
     factory :survey_with_question do
       after(:create) do |survey|
         create(:question, content: 'Great question1', survey_id: survey.id, option: 1)
@@ -18,7 +18,6 @@ FactoryGirl.define do
   end
 
   factory :question do
-
     meta '{
 "1":{"content":"Answer1"},
 "2":{"content":"Answer2"},

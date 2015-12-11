@@ -1,0 +1,37 @@
+<h1 class="text-center">Newsletters status</h1>
+
+<div class="row">
+  <div class="col-md-1 text-center"><h3>Id</h3></div>
+  <div class="col-md-2 text-left"><h3>Name</h3></div>
+  <div class="col-md-3 text-center"><h3>Email</h3></div>
+    <div class="col-md-3 text-center"><h3>Status</h3></div>
+  <div class="col-md-3 "></div>
+</div>
+<hr class="hr_black">
+<% @surveys.each do |survey| %>
+    <div class="row">
+      <div class="col-md-1 text-center"><h5><%= survey.id %></h5></div>
+      <div class="col-md-2 text-left"><h5><%= survey.name %></h5></div>
+      <div class="col-md-6 text-left">
+        <h5>
+
+          <% @emails.each do |email| %>
+              <% if email.survey_id == survey.id %>
+                  <div class="row">
+                    <div class="col-md-5 text-right">
+                      <p class="survey_extra_info"><%= email[:address] %>
+                      </p>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5 text-center">
+                      <%= 'sent' if email[:sent] %>
+                      <%= 'NOT SENT' if !email[:sent] %>
+                    </div>
+                  </div>
+              <% end %>
+          <% end %>
+        </h5>
+      </div>
+    </div>
+    <hr class="hr_black">
+<% end %>

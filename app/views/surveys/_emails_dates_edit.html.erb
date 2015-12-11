@@ -16,8 +16,7 @@
         <li>
           <%= s.label :address %>
           <%= s.text_field :address, value: s.object.address, class: 'email' %>
-          <% send_status = s.object.sent || false%>
-          <%= s.radio_button :sent, value: send_status %>
+          <%= s.check_box :sent, {checked: s.object.sent} %>
           <%= link_to 'Remove', survey_mail_destroy_path(s.object.id), confirm: 'Are you sure?',
                       method: :delete, remote: true, class: 'remove_item', id: "remove_email_#{s.options[:child_index].to_s}" %>
         </li>

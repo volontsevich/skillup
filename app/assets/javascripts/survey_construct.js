@@ -46,14 +46,14 @@ $(document).on('mouseover', '.clickable-area', function () {
 
 $(document).on('click', '.survey_submit', function (e) {
     var slider_present = false;
-    $(document).find('input.answer.slider').each(function () {
+    $(document).find('.answers input.answer.slider').each(function () {
         if ($(this).prop('id') != undefined)
             slider_present = true;
     });
     if (slider_present) {
         var d = [];
         var i = 0;
-        $(document).find('input.answer.slider').each(function () {
+        $(document).find('.answers input.answer.slider').each(function () {
             d[i] = parseFloat($(this).val());
             $(this).val(d[i]);
             i += 1;

@@ -29,8 +29,8 @@
     <label for="survey_survey_mails_attributes_{{=index}}_address">Address</label>
     <input class="email" name="survey[survey_mails_attributes][{{=index}}][address]"
            id="survey_survey_mails_attributes_{{=index}}_address" type="text">
-    <input value="false" name="survey[survey_mails_attributes][{{=index}}][sent]"
-           id="survey_survey_mails_attributes_{{=index}}_sent">
+    <input value="1" name="survey[survey_mails_attributes][{{=index}}][sent]"
+           id="survey_survey_mails_attributes_{{=index}}_sent" type="checkbox">
     <a class="remove_item" id="remove_email_{{=index}}" href="#">Remove</a>
   </li>
 </div>

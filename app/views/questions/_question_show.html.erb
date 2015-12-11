@@ -3,9 +3,9 @@
     <li><%= question.content %></li>
 
     <% if question.option == question_types[:'Radio'] %>
-        <ul><%= @answers[ind] %></ul>
+        <ul><%= @answers[ind].html_safe %></ul>
     <% else %>
-        <ol><%= @answers[ind] %></ol>
+        <ol><%= @answers[ind].html_safe %></ol>
     <% end %>
 
   </div>

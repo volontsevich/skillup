@@ -45,11 +45,11 @@ class SurveysController < ApplicationController
   def answers_without_json
     @answers = []
     @survey.questions.each do |question|
+      answers = ''
       if question.meta.length != 0
-        answers = ''
-        objArray = ActiveSupport::JSON.decode(question.meta)
+        answers_array = ActiveSupport::JSON.decode(question.meta)
         i = 0
-        objArray.each do |k, v|
+        answers_array.each do |k, v|
           if question.option == question_types[:'Slider']
             answers += '<li class="li_without_marker">'
             answers += 'Min value ' if i == 0
@@ -62,7 +62,7 @@ class SurveysController < ApplicationController
           i +=1
         end
       end
-      @answers.push(answers.to_s.html_safe)
+      @answers.push(answers.to_s)
     end
 
   end

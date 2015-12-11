@@ -1,0 +1,13 @@
+<% i = 0 if question.option == question_types[:'Checkbox'] %>
+<% @obj_array[j].each do |k, v| %>
+    <li class="li_without_marker">
+      <% if question.option == question_types[:'Radio'] %>
+          <%= q.radio_button "#{j.to_s}][reply][0][content", v['content'], required: 'required',
+                             id: "radio#{v['content']}" %>
+      <% elsif question.option == question_types[:'Checkbox'] %>
+          <%= q.check_box "#{j.to_s}][reply][#{i.to_s}][content", {id: 'checkbox'}, v['content'], nil %>
+      <% end %>
+      <%= v['content'] %>
+    </li>
+    <% i += 1 if question.option == question_types[:'Checkbox'] %>
+<% end %>

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
 
   get 'surveys/index'
+  get 'survey_mails/index'
   delete 'question_destroy' => 'questions#destroy'
   delete 'survey_mail_destroy' => 'survey_mails#destroy'
   put 'admin/users' => 'users#update'

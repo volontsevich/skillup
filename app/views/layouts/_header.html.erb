@@ -19,7 +19,7 @@
             <% if current_user.admin? %>
                 <li><%= link_to 'User management', admin_users_path %></li>
                 <li><%= link_to 'Surveys', surveys_index_path %></li>
-                <li><%= link_to 'Newsletters status', '#' %></li>
+                <li><%= link_to 'Newsletters status', survey_mails_index_path %></li>
             <% else %>
                 <li><%= link_to 'My surveys', surveys_index_path %></li>
             <% end %>

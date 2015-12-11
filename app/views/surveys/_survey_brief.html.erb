@@ -1,10 +1,17 @@
-<div class="row">
+<% expired = Date.current > survey.exp_date %>
+<% row_class = '' %>
+<% row_class = 'gray' if expired %>
+<div class="row <%= row_class%>">
   <div class="col-md-1 text-center clickable-area" data-href=<%= survey_path(survey) %>>
     <h4><%= survey.id %></h4>
   </div>
 
   <div class="col-md-2 text-left clickable-area" data-href=<%= survey_path(survey) %>>
     <h4><%= survey.name %></h4>
+  </div>
+
+  <div class="col-md-2 text-center clickable-area" data-href=<%= survey_path(survey) %>>
+    <h4><%= survey.exp_date %></h4>
   </div>
 
   <% if current_user.admin? %>

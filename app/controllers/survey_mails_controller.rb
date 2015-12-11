@@ -1,10 +1,14 @@
 class SurveyMailsController < ApplicationController
   before_action :authenticate_user!
   before_filter :find_survey_mail, only: :destroy
-  before_filter :find_survey_mails, only: :send_mail
+  before_filter :find_survey_mails, only: [:send_mail, :index]
 
   def new
     debugger
+  end
+
+  def index
+
   end
 
   def destroy
@@ -22,8 +26,22 @@ class SurveyMailsController < ApplicationController
   end
 
   def find_survey_mails
-    @survey = Survey.find(params[:id])
-    @emails=SurveyMail.for_survey(@survey.id).select(:address)
+
+    if params[:id].nil?
+      if current_user.admin?
+        @surveys=Survey.all
+        @emails=SurveyMail.all
+      else
+        @surveys=Survey.for_user(current_user.id)
+        @ids=Survey.pluck(:id)
+        @emails=SurveyMail.for_surveys(@ids)
+      end
+    else
+      @survey = Survey.find(params[:id])
+      @emails=SurveyMail.for_survey(@survey.id)
+    end
+
+
   end
 
   def survey_mail_params
