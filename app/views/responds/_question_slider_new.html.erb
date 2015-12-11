@@ -1,0 +1,7 @@
+<div id="slider">
+  <input type="hidden" id="slider-input" data-min="<%= @obj_array[j]['0']['content'] %>"
+         data-def="<%= @obj_array[j]['2']['content'] %>"
+         data-max="<%= @obj_array[j]['1']['content'] %>">
+  <%= q.text_field "#{j.to_s}][reply][0][content", readonly: true, id: 'amount' %>
+  <%= content_tag(:div, nil, id: 'slider-range') %>
+</div>
