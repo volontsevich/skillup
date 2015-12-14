@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210132212) do
+ActiveRecord::Schema.define(version: 20151211150423) do
 
   create_table "questions", force: :cascade do |t|
     t.integer  "survey_id",  limit: 4
@@ -30,12 +30,11 @@ ActiveRecord::Schema.define(version: 20151210132212) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
     t.integer  "survey_id",   limit: 4
-    t.integer  "user_id",     limit: 4
+    t.string   "user_mail",   limit: 255
   end
 
   add_index "responds", ["question_id"], name: "index_responds_on_question_id", using: :btree
   add_index "responds", ["survey_id"], name: "index_responds_on_survey_id", using: :btree
-  add_index "responds", ["user_id"], name: "index_responds_on_user_id", using: :btree
 
   create_table "survey_mails", force: :cascade do |t|
     t.integer  "survey_id",  limit: 4
@@ -81,7 +80,6 @@ ActiveRecord::Schema.define(version: 20151210132212) do
   add_foreign_key "questions", "surveys"
   add_foreign_key "responds", "questions"
   add_foreign_key "responds", "surveys"
-  add_foreign_key "responds", "users"
   add_foreign_key "survey_mails", "surveys"
   add_foreign_key "surveys", "users"
 end

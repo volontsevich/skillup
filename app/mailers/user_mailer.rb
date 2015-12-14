@@ -12,6 +12,7 @@ class UserMailer < ApplicationMailer
   end
 
   def send_survey(survey, mail)
+    link_for_user=new_respond_url(survey: survey.id, user: mail[:address].to_s).to_s
     template_name = 'new-survey'
     template_content = []
     message = {
@@ -20,7 +21,7 @@ class UserMailer < ApplicationMailer
         merge_vars: [
             {rcpt: mail[:address],
              vars: [
-                 {name: "SURVEY_NAME", content: "You should go to <a href='#{survey_url(survey)}'>this link</a> and pass new survey!</h4>"}
+                 {name: "SURVEY_NAME", content: "You should go to <a href='#{link_for_user}'>this link</a> and pass new survey!</h4>"}
              ]
             }
         ]
@@ -28,3 +29,4 @@ class UserMailer < ApplicationMailer
     mandrill_client.messages.send_template template_name, template_content, message
   end
 end
+

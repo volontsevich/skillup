@@ -4,7 +4,7 @@ class SurveyMailsController < ApplicationController
   before_filter :find_survey_mails, only: [:send_mail, :index]
 
   def new
-    debugger
+
   end
 
   def index
@@ -26,7 +26,6 @@ class SurveyMailsController < ApplicationController
   end
 
   def find_survey_mails
-
     if params[:id].nil?
       if current_user.admin?
         @surveys=Survey.all
@@ -40,8 +39,6 @@ class SurveyMailsController < ApplicationController
       @survey = Survey.find(params[:id])
       @emails=SurveyMail.for_survey(@survey.id)
     end
-
-
   end
 
   def survey_mail_params

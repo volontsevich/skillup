@@ -127,6 +127,7 @@ class SurveysController < ApplicationController
       else
         @surveys=Survey.for_user(current_user.id)
       end
+      @surveys=@surveys.page(params[:page]).per(5)
     end
   end
 

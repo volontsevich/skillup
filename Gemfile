@@ -25,6 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'underscore-rails'
 gem 'whenever', :require => false
 gem 'chartkick'
+gem 'kaminari'
 gem 'mandrill-api', '~> 1.0.53', require: 'mandrill'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

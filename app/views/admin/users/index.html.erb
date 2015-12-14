@@ -14,6 +14,6 @@
     <% @users.each do |user| %>
         <%= render 'admin/users/user', user: user %>
     <% end %>
-
+    <div class="text-center"> <%= paginate @users %></div>
     <%= link_to 'New', new_admin_user_path, class: 'btn btn-primary action_button' %>
 <% end %>

@@ -7,6 +7,8 @@
     </h4>
     <hr class="hr_black">
     <ol>
+      <%= f.hidden_field :user, value: @user_mail%>
+      <%= f.hidden_field :survey, value: @survey.id%>
       <%= f.fields_for :questions do |q| %>
           <% j = 0 %>
           <% @survey.questions.each do |question| %>
